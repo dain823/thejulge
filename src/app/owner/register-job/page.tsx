@@ -1,5 +1,5 @@
 'use client';
-
+import { Suspense } from 'react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Modal from '@/components/member/Modal';
@@ -180,94 +180,100 @@ export default function JobPostFormPage() {
   };
 
   return (
-    <div className="w-full max-w-[964px] p-8 max-[375px]:p-4 flex flex-col justify-center mx-auto">
-      <header className="flex justify-between mb-8">
-        <h1 className="text-lg sm:text-2xl font-bold">{isEditMode ? '공고 편집' : '공고 등록'}</h1>
-        <button className="cursor-pointer" onClick={() => router.push('/owner/owner-store-detail')}>
-          <Image
-            src="/close-icon.png"
-            width={24}
-            height={24}
-            className="sm:w-8 sm:h-8"
-            alt="exit"
-          />
-        </button>
-      </header>
-
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="flex flex-col">
-            <label htmlFor="wage" className="mb-2">
-              시급
-            </label>
-            <div className="relative w-full">
-              <input
-                id="wage"
-                type="number"
-                placeholder="10,000"
-                value={hourlyPay}
-                onChange={(e) => setHourlyPay(e.target.value)}
-                className="p-3 border border-solid border-gray-300 rounded-md w-full
-                            appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
-              <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-50 pointer-events-none">
-                원
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="start-date" className="mb-2">
-              시작 일시
-            </label>
-            <input
-              id="start-date"
-              type="datetime-local"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="p-3 border border-solid border-gray-300 text-gray-50 rounded-md w-full"
-            ></input>
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="working-time" className="mb-2">
-              업무 시간
-            </label>
-            <div className="relative">
-              <input
-                id="working-time"
-                type="number"
-                placeholder="6"
-                value={workHours}
-                onChange={(e) => setWorkHours(e.target.value)}
-                className="p-3 border border-solid border-gray-300 rounded-md w-full
-                            appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              ></input>
-              <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-50 pointer-events-none">
-                시간
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col mt-6 ">
-          <label htmlFor="job-info" className="mb-2">
-            공고 설명
-          </label>
-          <textarea
-            id="job-info"
-            placeholder="공고에 대한 기본적인 설명을 해주세요"
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            className="p-2 border border-solid border-gray-300 rounded-md h-[153px] resize-none"
-          ></textarea>
-        </div>
-
-        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
-
-        <div className="flex justify-center mt-8">
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <div className="w-full max-w-[964px] p-8 max-[375px]:p-4 flex flex-col justify-center mx-auto">
+        <header className="flex justify-between mb-8">
+          <h1 className="text-lg sm:text-2xl font-bold">
+            {isEditMode ? '공고 편집' : '공고 등록'}
+          </h1>
           <button
-            type="submit"
-            disabled={!isFormValid || isSubmitting}
-            className={`cursor-pointer transition-colors duration-300 ease-in-out custom-button 
+            className="cursor-pointer"
+            onClick={() => router.push('/owner/owner-store-detail')}
+          >
+            <Image
+              src="/close-icon.png"
+              width={24}
+              height={24}
+              className="sm:w-8 sm:h-8"
+              alt="exit"
+            />
+          </button>
+        </header>
+
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="flex flex-col">
+              <label htmlFor="wage" className="mb-2">
+                시급
+              </label>
+              <div className="relative w-full">
+                <input
+                  id="wage"
+                  type="number"
+                  placeholder="10,000"
+                  value={hourlyPay}
+                  onChange={(e) => setHourlyPay(e.target.value)}
+                  className="p-3 border border-solid border-gray-300 rounded-md w-full
+                            appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-50 pointer-events-none">
+                  원
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="start-date" className="mb-2">
+                시작 일시
+              </label>
+              <input
+                id="start-date"
+                type="datetime-local"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="p-3 border border-solid border-gray-300 text-gray-50 rounded-md w-full"
+              ></input>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="working-time" className="mb-2">
+                업무 시간
+              </label>
+              <div className="relative">
+                <input
+                  id="working-time"
+                  type="number"
+                  placeholder="6"
+                  value={workHours}
+                  onChange={(e) => setWorkHours(e.target.value)}
+                  className="p-3 border border-solid border-gray-300 rounded-md w-full
+                            appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                ></input>
+                <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-50 pointer-events-none">
+                  시간
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6 ">
+            <label htmlFor="job-info" className="mb-2">
+              공고 설명
+            </label>
+            <textarea
+              id="job-info"
+              placeholder="공고에 대한 기본적인 설명을 해주세요"
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              className="p-2 border border-solid border-gray-300 rounded-md h-[153px] resize-none"
+            ></textarea>
+          </div>
+
+          {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+
+          <div className="flex justify-center mt-8">
+            <button
+              type="submit"
+              disabled={!isFormValid || isSubmitting}
+              className={`cursor-pointer transition-colors duration-300 ease-in-out custom-button 
                     w-[351px] h-[48px] max-w-full rounded-md
                     ${
                       isFormValid && !isSubmitting
@@ -275,20 +281,21 @@ export default function JobPostFormPage() {
                         : ' bg-gray-30 cursor-not-allowed'
                     }
                     `}
-          >
-            {isSubmitting ? '처리 중...' : isEditMode ? '수정하기' : '등록하기'}
-          </button>
-        </div>
-      </form>
+            >
+              {isSubmitting ? '처리 중...' : isEditMode ? '수정하기' : '등록하기'}
+            </button>
+          </div>
+        </form>
 
-      {showModal && (
-        <div className="max-w-[330px]">
-          <Modal
-            message={isEditMode ? '수정이 완료되었습니다.' : '등록이 완료되었습니다.'}
-            onClose={handleCloseModal}
-          />
-        </div>
-      )}
-    </div>
+        {showModal && (
+          <div className="max-w-[330px]">
+            <Modal
+              message={isEditMode ? '수정이 완료되었습니다.' : '등록이 완료되었습니다.'}
+              onClose={handleCloseModal}
+            />
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 }
