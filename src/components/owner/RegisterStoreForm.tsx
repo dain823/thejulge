@@ -95,8 +95,12 @@ export default function RegisterStoreForm() {
       const { item } = await res.json();
       await fetch(item.url, { method: 'PUT', body: file });
       setForm((prev) => ({ ...prev, imageUrl: item.url.split('?')[0] }));
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) { // 'any' 대신 'unknown' 사용
+      if (err instanceof Error) { // Error 타입인지 확인
+        setError(err.message);
+      } else {
+        setError('알 수 없는 오류가 발생했습니다.');
+      }
     } finally {
       setUploading(false);
     }
@@ -139,8 +143,12 @@ export default function RegisterStoreForm() {
       const data = await response.json();
       localStorage.setItem('registeredShop', JSON.stringify(data.item));
       setShowModal(true);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) { // 'any' 대신 'unknown' 사용
+      if (err instanceof Error) { // Error 타입인지 확인
+        setError(err.message);
+      } else {
+        setError('알 수 없는 오류가 발생했습니다.');
+      }
     }
   };
 
