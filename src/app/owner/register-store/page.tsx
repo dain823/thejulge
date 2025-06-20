@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import RegisterStoreForm from '@/components/RegisterStoreForm';
+import RegisterStoreForm from '@/components/owner/RegisterStoreForm';
 
 export default function Page() {
   return (
