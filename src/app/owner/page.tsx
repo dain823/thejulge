@@ -1,6 +1,6 @@
 'use client';
-import RegisterForm from '../owner/Register/page';
 export const dynamic = 'force-dynamic';
+import RegisterForm from '../owner/Register/page';
 const Owner = () => {
   return (
     <div>
