@@ -6,7 +6,6 @@ import Modal from '@/components/member/Modal';
 import { useRouter, useSearchParams } from 'next/navigation';
 import useToken from '@/lib/hooks/use-token';
 import axiosInstance from '@/lib/api/axios';
-export const dynamic = 'force-dynamic';
 
 interface JobPostRequestBody {
   hourlyPay: number;
